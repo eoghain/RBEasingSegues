@@ -46,9 +46,37 @@
 
 @end
 
+#pragma mark - From Right
+
 @implementation RBSlideOverRightSegue
-	// Just a name, does the same as base slide over segue
+
 @end
+
+@implementation RBSlideOverRightBounceEaseOutSegue
+
+- (UIView *)easingView { return [[RBBounceOutView alloc] init]; }
+
+@end
+
+@implementation RBSlideOverRightCubicEaseOutSegue
+
+- (UIView *)easingView { return [[RBCubicEaseOutView alloc] init]; }
+
+@end
+
+@implementation RBSlideOverRightBackEaseOutSegue
+
+- (UIView *)easingView { return [[RBBackEaseOutView alloc] init]; }
+
+@end
+
+@implementation RBSlideOverRightElasticEaseOutSegue
+
+- (UIView *)easingView { return [[RBElasticEaseOutView alloc] init]; }
+
+@end
+
+#pragma mark - From Left
 
 @implementation RBSlideOverLeftSegue
 
@@ -64,29 +92,26 @@
 
 @end
 
-@implementation RBSlideOverRightBounceOutSegue
+@implementation RBSlideOverLeftBounceEaseOutSegue
 
-- (UIView *)easingView
-{
-	return [[RBBounceOutView alloc] init];
-}
+- (UIView *)easingView { return [[RBBounceOutView alloc] init]; }
 
 @end
 
-@implementation RBSlideOverRightEaseInSegue
+@implementation RBSlideOverLeftCubicEaseOutSegue
 
-- (UIView *)easingView
-{
-	return [[RBEaseInView alloc] init];
-}
+- (UIView *)easingView { return [[RBCubicEaseOutView alloc] init]; }
 
 @end
 
-@implementation RBSlideOverRightBackEaseOutSegue
+@implementation RBSlideOverLeftBackEaseOutSegue
 
-- (UIView *)easingView
-{
-	return [[RBBackEaseOutView alloc] init];
-}
+- (UIView *)easingView { return [[RBBackEaseOutView alloc] init]; }
+
+@end
+
+@implementation RBSlideOverLeftElasticEaseOutSegue
+
+- (UIView *)easingView { return [[RBElasticEaseOutView alloc] init]; }
 
 @end

@@ -17,18 +17,38 @@
 
 @end
 
+@interface RBSlideOverRightBounceEaseOutSegue : RBSlideOverRightSegue
+
+@end
+
+@interface RBSlideOverRightCubicEaseOutSegue : RBSlideOverRightSegue
+
+@end
+
+@interface RBSlideOverRightBackEaseOutSegue : RBSlideOverRightSegue
+
+@end
+
+@interface RBSlideOverRightElasticEaseOutSegue : RBSlideOverRightSegue
+
+@end
+
 @interface RBSlideOverLeftSegue : RBSlideOverSegue
 
 @end
 
-@interface RBSlideOverRightBounceOutSegue : RBSlideOverSegue
+@interface RBSlideOverLeftBounceEaseOutSegue : RBSlideOverLeftSegue
 
 @end
 
-@interface RBSlideOverRightEaseInSegue : RBSlideOverSegue
+@interface RBSlideOverLeftCubicEaseOutSegue : RBSlideOverLeftSegue
 
 @end
 
-@interface RBSlideOverRightBackEaseOutSegue : RBSlideOverSegue
+@interface RBSlideOverLeftBackEaseOutSegue : RBSlideOverLeftSegue
+
+@end
+
+@interface RBSlideOverLeftElasticEaseOutSegue : RBSlideOverLeftSegue
 
 @end

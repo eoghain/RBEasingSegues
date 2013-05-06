@@ -12,14 +12,26 @@
 
 @end
 
-@interface RBEaseInView : UIView
+
+@interface RBCubicEaseInView : UIView
 
 @end
+
+@interface RBCubicEaseOutView : UIView
+
+@end
+
 
 @interface RBBounceOutView : UIView
 
 @end
 
+
 @interface RBBackEaseOutView : UIView
+
+@end
+
+
+@interface RBElasticEaseOutView : UIView
 
 @end

@@ -16,3 +16,4 @@ Inspiration
 Meaningful Transitions (http://www.ui-transitions.com/)
 Warren Moore (https://github.com/warrenm/AHEasing.git)
 Evadne Wu (http://blog.radi.ws/post/26493755964/using-custom-timing-functions-and-animation-objects)
+Easings.net (http://easings.net/)

@@ -86,28 +86,31 @@
 
 @implementation RBBounceOutLayer
 
-- (AHEasingFunction)animationFunction
-{
-	return BounceEaseOut;
-}
+- (AHEasingFunction)animationFunction { return BounceEaseOut; }
 
 @end
 
-@implementation RBEaseInLayer
+@implementation RBCubicEaseInLayer
 
-- (AHEasingFunction)animationFunction
-{
-	return CubicEaseIn;
-}
+- (AHEasingFunction)animationFunction { return CubicEaseIn; }
+
+@end
+
+@implementation RBCubicEaseOutLayer
+
+- (AHEasingFunction)animationFunction { return CubicEaseOut; }
 
 @end
 
 @implementation RBBackEaseOutLayer
 
-- (AHEasingFunction)animationFunction
-{
-	return BackEaseOut;
-}
+- (AHEasingFunction)animationFunction { return BackEaseOut; }
+
+@end
+
+@implementation RBElasticEaseOutLayer
+
+- (AHEasingFunction)animationFunction { return ElasticEaseOut; }
 
 @end
 

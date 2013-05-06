@@ -18,10 +18,18 @@
 
 @end
 
-@interface RBEaseInLayer : RBEasingLayer
+@interface RBCubicEaseInLayer : RBEasingLayer
+
+@end
+
+@interface RBCubicEaseOutLayer : RBEasingLayer
 
 @end
 
 @interface RBBackEaseOutLayer : RBEasingLayer
+
+@end
+
+@interface RBElasticEaseOutLayer : RBEasingLayer
 
 @end
