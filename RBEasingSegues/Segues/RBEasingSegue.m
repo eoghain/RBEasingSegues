@@ -15,6 +15,20 @@
 	return [[RBLinearView alloc] init];
 }
 
+- (CGRect)scrollAdjustedFrame:(CGRect)frame
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+	
+	if ([src.view respondsToSelector:@selector(contentOffset)])
+	{
+		CGPoint offset = [(UIScrollView *)src.view contentOffset];
+		frame.origin.x += offset.x;
+		frame.origin.y += offset.y;
+	}
+
+	return frame;
+}
+
 - (CGRect)startingFrame
 {
 	UIViewController *src = (UIViewController *) self.sourceViewController;
@@ -22,7 +36,7 @@
 	CGRect srcFrame = src.view.frame;
 	CGRect offScreenFrame = CGRectMake(srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
 
-	return offScreenFrame;
+	return [self scrollAdjustedFrame:offScreenFrame];
 }
 
 - (void)perform
@@ -30,13 +44,14 @@
 	UIViewController *src = (UIViewController *) self.sourceViewController;
     UIViewController *dst = (UIViewController *) self.destinationViewController;
 
-	CGRect srcFrame = src.view.frame;
+	CGRect srcFrame = [self scrollAdjustedFrame:src.view.frame];
+
 	CGRect offScreenLeftFrame = CGRectMake(-srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
 
 	UIView * easingView = self.easingView;
 	easingView.frame = self.startingFrame;
 	easingView.userInteractionEnabled = NO;
-	dst.view.frame = srcFrame;
+	dst.view.frame = src.view.frame;
 
 	// Add dst.view to the bounceView wrapper
 	[easingView addSubview:dst.view];

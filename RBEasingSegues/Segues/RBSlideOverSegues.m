@@ -15,12 +15,12 @@
 	UIViewController *src = (UIViewController *) self.sourceViewController;
     UIViewController *dst = (UIViewController *) self.destinationViewController;
 
-	CGRect srcFrame = src.view.frame;
+	CGRect srcFrame = [self scrollAdjustedFrame:src.view.frame];
 
 	UIView * easingView = self.easingView;
 	easingView.frame = self.startingFrame;
 	easingView.userInteractionEnabled = NO;
-	dst.view.frame = srcFrame;
+	dst.view.frame = src.view.frame;
 
 	// Add dst.view to the bounceView wrapper
 	[easingView addSubview:dst.view];
@@ -87,7 +87,7 @@
 	CGRect srcFrame = src.view.frame;
 	CGRect offScreenFrame = CGRectMake(-srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
 
-	return offScreenFrame;
+	return [self scrollAdjustedFrame:offScreenFrame];
 }
 
 @end

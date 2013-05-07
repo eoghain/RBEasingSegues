@@ -14,4 +14,6 @@
 @property (readonly) UIView *easingView;
 @property (readonly) CGRect startingFrame;
 
+- (CGRect)scrollAdjustedFrame:(CGRect)frame;
+
 @end

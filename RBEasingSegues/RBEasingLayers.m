@@ -23,61 +23,41 @@
 	return LinearInterpolation;
 }
 
-// @TODO make fail early
 - (void)addAnimation:(CAAnimation *)anim forKey:(NSString *)key {
 
-	if ([anim isKindOfClass:[CABasicAnimation class]]) {
+	// Fail early
+	if (![anim isKindOfClass:[CABasicAnimation class]]) [super addAnimation:anim forKey:key];
+	if (![key isEqualToString:@"position"]) [super addAnimation:anim forKey:key];
 
-		CABasicAnimation *basicAnimation = (CABasicAnimation *)anim;
-		NSValue *fromValue = basicAnimation.fromValue;
-		NSValue *toValue = basicAnimation.toValue;
-		NSValue *currentValue = [self valueForKeyPath:key];
+	CABasicAnimation *basicAnimation = (CABasicAnimation *)anim;
+	NSValue *fromValue = basicAnimation.fromValue;
+	NSValue *toValue = basicAnimation.toValue;
+	NSValue *currentValue = [self valueForKeyPath:key];
 
-		NSValue *actualFromValue = fromValue ? fromValue : currentValue;
-		NSValue *actualToValue = toValue ? toValue : currentValue;
+	NSValue *actualFromValue = fromValue ? fromValue : currentValue;
+	NSValue *actualToValue = toValue ? toValue : currentValue;
 
-		CAKeyframeAnimation *override = nil;
+	CGPoint fromPoint = [actualFromValue CGPointValue];
+	CGPoint toPoint = [actualToValue CGPointValue];
 
-		if ([key isEqualToString:@"position"]) {
+	CAKeyframeAnimation *override = [CAKeyframeAnimation animationWithKeyPath:key function:self.animationFunction fromPoint:fromPoint toPoint:toPoint];
 
-			CGPoint fromPoint = [actualFromValue CGPointValue];
-			CGPoint toPoint = [actualToValue CGPointValue];
+	override.duration = anim.duration;
 
-			override = [CAKeyframeAnimation animationWithKeyPath:key function:self.animationFunction fromPoint:fromPoint toPoint:toPoint];
+	override.beginTime = anim.beginTime;
+	override.speed = anim.speed;
+	override.timeOffset = anim.timeOffset;
+	override.repeatCount = anim.repeatCount;
+	override.repeatDuration = anim.repeatDuration;
+	override.autoreverses = anim.autoreverses;
+	override.fillMode = anim.fillMode;
 
-		} //	TBD: other properties?
+	//	?
+	//	override.timingFunction = anim.timingFunction;
+	override.delegate = anim.delegate;
+	override.removedOnCompletion = anim.removedOnCompletion;
 
-		if (override) {
-
-			override.duration = anim.duration;
-
-			override.beginTime = anim.beginTime;
-			override.speed = anim.speed;
-			override.timeOffset = anim.timeOffset;
-			override.repeatCount = anim.repeatCount;
-			override.repeatDuration = anim.repeatDuration;
-			override.autoreverses = anim.autoreverses;
-			override.fillMode = anim.fillMode;
-
-			//	?
-			//	override.timingFunction = anim.timingFunction;
-			override.delegate = anim.delegate;
-			override.removedOnCompletion = anim.removedOnCompletion;
-
-			[super addAnimation:override forKey:key];
-
-		} else {
-
-			[super addAnimation:anim forKey:key];
-
-		}
-
-	} else {
-
-		[super addAnimation:anim forKey:key];
-		
-	}
-	
+	[super addAnimation:override forKey:key];
 }
 
 @end
