@@ -26,6 +26,7 @@
 		3131D7C9173857880093949A /* RBEasingViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7C2173857880093949A /* RBEasingViews.m */; };
 		3131D7CA173857880093949A /* RBEasingSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7C5173857880093949A /* RBEasingSegue.m */; };
 		3131D7CB173857880093949A /* RBSlideOverSegues.m in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7C7173857880093949A /* RBSlideOverSegues.m */; };
+		3131D7D1173974B80093949A /* RBPushSegues.m in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D0173974B80093949A /* RBPushSegues.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,8 @@
 		3131D7C5173857880093949A /* RBEasingSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBEasingSegue.m; sourceTree = "<group>"; };
 		3131D7C6173857880093949A /* RBSlideOverSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBSlideOverSegues.h; sourceTree = "<group>"; };
 		3131D7C7173857880093949A /* RBSlideOverSegues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBSlideOverSegues.m; sourceTree = "<group>"; };
+		3131D7CF173974B80093949A /* RBPushSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBPushSegues.h; sourceTree = "<group>"; };
+		3131D7D0173974B80093949A /* RBPushSegues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBPushSegues.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +168,8 @@
 				3131D7C5173857880093949A /* RBEasingSegue.m */,
 				3131D7C6173857880093949A /* RBSlideOverSegues.h */,
 				3131D7C7173857880093949A /* RBSlideOverSegues.m */,
+				3131D7CF173974B80093949A /* RBPushSegues.h */,
+				3131D7D0173974B80093949A /* RBPushSegues.m */,
 			);
 			path = Segues;
 			sourceTree = "<group>";
@@ -245,6 +250,7 @@
 				3131D7C9173857880093949A /* RBEasingViews.m in Sources */,
 				3131D7CA173857880093949A /* RBEasingSegue.m in Sources */,
 				3131D7CB173857880093949A /* RBSlideOverSegues.m in Sources */,
+				3131D7D1173974B80093949A /* RBPushSegues.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

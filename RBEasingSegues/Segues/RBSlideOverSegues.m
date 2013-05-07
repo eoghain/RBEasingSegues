@@ -27,7 +27,7 @@
 	// Add bounceView to source view for animation
 	[src.view addSubview:easingView];
 
-	[UIView animateWithDuration:1.0 animations:^{
+	[UIView animateWithDuration:self.animationDuration animations:^{
 
 		easingView.frame = srcFrame;
 
@@ -55,6 +55,7 @@
 @implementation RBSlideOverRightBounceEaseOutSegue
 
 - (UIView *)easingView { return [[RBBounceOutView alloc] init]; }
+- (CGFloat)animationDuration { return 1.0; }
 
 @end
 
@@ -73,6 +74,7 @@
 @implementation RBSlideOverRightElasticEaseOutSegue
 
 - (UIView *)easingView { return [[RBElasticEaseOutView alloc] init]; }
+- (CGFloat)animationDuration { return 1.0; }
 
 @end
 
@@ -95,6 +97,7 @@
 @implementation RBSlideOverLeftBounceEaseOutSegue
 
 - (UIView *)easingView { return [[RBBounceOutView alloc] init]; }
+- (CGFloat)animationDuration { return 1.0; }
 
 @end
 
@@ -113,5 +116,6 @@
 @implementation RBSlideOverLeftElasticEaseOutSegue
 
 - (UIView *)easingView { return [[RBElasticEaseOutView alloc] init]; }
+- (CGFloat)animationDuration { return 1.0; }
 
 @end
