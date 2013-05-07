@@ -3,7 +3,6 @@
 //  RBEasingSegues
 //
 //  Created by Rob Booth on 5/7/13.
-//  Copyright (c) 2013 Rob Booth. All rights reserved.
 //
 
 #import "RBEasingSegue.h"
