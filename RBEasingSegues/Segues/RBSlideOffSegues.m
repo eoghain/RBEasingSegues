@@ -1,13 +1,24 @@
 //
-//  RBSlideOverSegues.m
+//  RBSlideOffSegues.m
 //  RBEasingSegues
 //
-//  Created by Rob Booth on 5/6/13.
+//  Created by Rob Booth on 5/15/13.
+//  Copyright (c) 2013 Rob Booth. All rights reserved.
 //
 
-#import "RBSlideOverSegues.h"
+#import "RBSlideOffSegues.h"
 
-@implementation RBSlideOverSegue
+@implementation RBSlideOffSegue
+
+- (CGRect)startingFrame
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+
+	CGRect srcFrame = src.view.frame;
+	CGRect offScreenFrame = CGRectMake(srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
+
+	return offScreenFrame;
+}
 
 - (void)perform
 {
@@ -17,26 +28,29 @@
 	CGRect srcFrame = [self scrollAdjustedFrame:src.view.frame];
 
 	UIView * easingView = self.easingView;
-	easingView.frame = self.startingFrame;
+	easingView.frame = src.view.frame;
 	easingView.userInteractionEnabled = NO;
 	dst.view.frame = src.view.frame;
 
-	// Add dst.view to the easingView wrapper
-	[easingView addSubview:dst.view];
+	UIImageView * srcImage = [[UIImageView alloc] initWithImage:[self imageFromView:src.view]];
+	srcImage.frame = CGRectMake(0, 0, srcFrame.size.width, srcFrame.size.height);
+
+//	UIImageView * dstImage = [[UIImageView alloc] initWithImage:[self imageFromView:dst.view]];
+//	dstImage.frame = CGRectMake(srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
+
+	[easingView addSubview:srcImage];
+
 	// Add easingView to source view for animation
-	[src.view addSubview:easingView];
+	[src.view.superview addSubview:dst.view];
+	[src.view.superview addSubview:easingView];
 
 	[UIView animateWithDuration:self.animationDuration animations:^{
 
-		easingView.frame = srcFrame;
+		easingView.frame = self.startingFrame;
 
 	} completion:^(BOOL finished) {
 
 		UINavigationController *nav = src.navigationController;
-
-		// Return dst.view to dst
-		dst.view = [easingView.subviews lastObject];
-		[nav.view addSubview:dst.view];
 		[nav pushViewController:dst animated:NO];
 		[easingView removeFromSuperview];
 		
@@ -47,30 +61,30 @@
 
 #pragma mark - From Right
 
-@implementation RBSlideOverRightSegue
+@implementation RBSlideOffRightSegue
 
 @end
 
-@implementation RBSlideOverRightBounceEaseOutSegue
+@implementation RBSlideOffRightBounceEaseOutSegue
 
 - (UIView *)easingView { return [[RBBounceOutView alloc] init]; }
 - (CGFloat)animationDuration { return 1.0; }
 
 @end
 
-@implementation RBSlideOverRightCubicEaseOutSegue
+@implementation RBSlideOffRightCubicEaseOutSegue
 
 - (UIView *)easingView { return [[RBCubicEaseOutView alloc] init]; }
 
 @end
 
-@implementation RBSlideOverRightBackEaseOutSegue
+@implementation RBSlideOffRightBackEaseOutSegue
 
 - (UIView *)easingView { return [[RBBackEaseOutView alloc] init]; }
 
 @end
 
-@implementation RBSlideOverRightElasticEaseOutSegue
+@implementation RBSlideOffRightElasticEaseOutSegue
 
 - (UIView *)easingView { return [[RBElasticEaseOutView alloc] init]; }
 - (CGFloat)animationDuration { return 1.0; }
@@ -79,7 +93,7 @@
 
 #pragma mark - From Left
 
-@implementation RBSlideOverLeftSegue
+@implementation RBSlideOffLeftSegue
 
 - (CGRect)startingFrame
 {
@@ -88,33 +102,28 @@
 	CGRect srcFrame = src.view.frame;
 	CGRect offScreenFrame = CGRectMake(-srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
 
-	return [self scrollAdjustedFrame:offScreenFrame];
+	return offScreenFrame;
 }
 
 @end
 
-@implementation RBSlideOverLeftBounceEaseOutSegue
+@implementation RBSlideOffLeftBounceEaseOutSegue
 
 - (UIView *)easingView { return [[RBBounceOutView alloc] init]; }
 - (CGFloat)animationDuration { return 1.0; }
 
 @end
 
-@implementation RBSlideOverLeftCubicEaseOutSegue
+@implementation RBSlideOffLeftCubicEaseOutSegue
 
 - (UIView *)easingView { return [[RBCubicEaseOutView alloc] init]; }
 
 @end
 
-@implementation RBSlideOverLeftBackEaseOutSegue
-
-- (UIView *)easingView { return [[RBBackEaseOutView alloc] init]; }
-
-@end
-
-@implementation RBSlideOverLeftElasticEaseOutSegue
+@implementation RBSlideOffLeftElasticEaseOutSegue
 
 - (UIView *)easingView { return [[RBElasticEaseOutView alloc] init]; }
 - (CGFloat)animationDuration { return 1.0; }
 
 @end
+

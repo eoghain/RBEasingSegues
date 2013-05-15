@@ -28,6 +28,7 @@
 		3131D7CB173857880093949A /* RBSlideOverSegues.m in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7C7173857880093949A /* RBSlideOverSegues.m */; };
 		3131D7D1173974B80093949A /* RBPushSegues.m in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D0173974B80093949A /* RBPushSegues.m */; };
 		3131D7D31739B1BE0093949A /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 3131D7D21739B1BE0093949A /* COPYING */; };
+		3131D7D7174433920093949A /* RBSlideOffSegues.m in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D6174433920093949A /* RBSlideOffSegues.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,8 @@
 		3131D7CF173974B80093949A /* RBPushSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBPushSegues.h; sourceTree = "<group>"; };
 		3131D7D0173974B80093949A /* RBPushSegues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBPushSegues.m; sourceTree = "<group>"; };
 		3131D7D21739B1BE0093949A /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		3131D7D5174433920093949A /* RBSlideOffSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBSlideOffSegues.h; sourceTree = "<group>"; };
+		3131D7D6174433920093949A /* RBSlideOffSegues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBSlideOffSegues.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +176,8 @@
 				3131D7C7173857880093949A /* RBSlideOverSegues.m */,
 				3131D7CF173974B80093949A /* RBPushSegues.h */,
 				3131D7D0173974B80093949A /* RBPushSegues.m */,
+				3131D7D5174433920093949A /* RBSlideOffSegues.h */,
+				3131D7D6174433920093949A /* RBSlideOffSegues.m */,
 			);
 			path = Segues;
 			sourceTree = "<group>";
@@ -255,6 +260,7 @@
 				3131D7CA173857880093949A /* RBEasingSegue.m in Sources */,
 				3131D7CB173857880093949A /* RBSlideOverSegues.m in Sources */,
 				3131D7D1173974B80093949A /* RBPushSegues.m in Sources */,
+				3131D7D7174433920093949A /* RBSlideOffSegues.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +385,7 @@
 				3131D75D173854430093949A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
