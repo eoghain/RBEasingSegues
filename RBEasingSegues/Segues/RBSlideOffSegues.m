@@ -10,7 +10,7 @@
 
 @implementation RBSlideOffSegue
 
-- (CGRect)startingFrame
+- (CGRect)endingFrame
 {
 	UIViewController *src = (UIViewController *) self.sourceViewController;
 
@@ -35,9 +35,6 @@
 	UIImageView * srcImage = [[UIImageView alloc] initWithImage:[self imageFromView:src.view]];
 	srcImage.frame = CGRectMake(0, 0, srcFrame.size.width, srcFrame.size.height);
 
-//	UIImageView * dstImage = [[UIImageView alloc] initWithImage:[self imageFromView:dst.view]];
-//	dstImage.frame = CGRectMake(srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
-
 	[easingView addSubview:srcImage];
 
 	// Add easingView to source view for animation
@@ -46,7 +43,7 @@
 
 	[UIView animateWithDuration:self.animationDuration animations:^{
 
-		easingView.frame = self.startingFrame;
+		easingView.frame = self.endingFrame;
 
 	} completion:^(BOOL finished) {
 
@@ -89,7 +86,7 @@
 
 @implementation RBSlideOffLeftSegue
 
-- (CGRect)startingFrame
+- (CGRect)endingFrame
 {
 	UIViewController *src = (UIViewController *) self.sourceViewController;
 

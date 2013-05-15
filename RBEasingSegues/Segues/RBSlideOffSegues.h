@@ -10,6 +10,8 @@
 
 @interface RBSlideOffSegue : RBEasingSegue
 
+@property (readonly) CGRect endingFrame;
+
 @end
 
 @interface RBSlideOffRightSegue : RBSlideOffSegue
