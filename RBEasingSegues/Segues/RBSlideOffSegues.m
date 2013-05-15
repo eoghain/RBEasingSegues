@@ -78,12 +78,6 @@
 
 @end
 
-@implementation RBSlideOffRightBackEaseOutSegue
-
-- (UIView *)easingView { return [[RBBackEaseOutView alloc] init]; }
-
-@end
-
 @implementation RBSlideOffRightElasticEaseOutSegue
 
 - (UIView *)easingView { return [[RBElasticEaseOutView alloc] init]; }
