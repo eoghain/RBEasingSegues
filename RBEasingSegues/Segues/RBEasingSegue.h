@@ -18,6 +18,7 @@
 @property (readonly) CGRect endingFrame;
 @property (readonly) CGFloat animationDuration;
 
+- (void)populateEasingView:(UIView *)easingView;
 - (CGRect)scrollAdjustedFrame:(CGRect)frame;
 - (UIImage *)imageFromView:(UIView *)view;
 

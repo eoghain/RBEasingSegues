@@ -53,36 +53,33 @@
 
 - (CGRect)startingFrame
 {
+	// Starting Frame is 2 * the width of the source scrolled so the left 1/2 is visible
 	UIViewController *src = (UIViewController *) self.sourceViewController;
 
 	CGRect srcFrame = src.view.frame;
-	CGRect offScreenFrame = CGRectMake(-srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
-
-	return [self scrollAdjustedFrame:offScreenFrame];
+	CGRect startingFrame = CGRectMake(-srcFrame.size.width, 0, srcFrame.size.width * 2, srcFrame.size.height);
+	
+	return startingFrame;
 }
 
 - (CGRect)endingFrame
 {
+	// Ending Frame is 2 * the width of the source scrolled so the right 1/2 is visible
 	UIViewController *src = (UIViewController *) self.sourceViewController;
 
 	CGRect srcFrame = src.view.frame;
-	CGRect offScreenFrame = CGRectMake(0, 0, srcFrame.size.width * 2, srcFrame.size.height);
+	CGRect endingFrame = CGRectMake(0, 0, srcFrame.size.width * 2, srcFrame.size.height);
 
-	return offScreenFrame;
+	return endingFrame;
 }
 
-- (void)perform
+- (void)populateEasingView:(UIView *)easingView
 {
 	UIViewController *src = (UIViewController *) self.sourceViewController;
-    UIViewController *dst = (UIViewController *) self.destinationViewController;
+	UIViewController *dst = (UIViewController *) self.destinationViewController;
 
 	CGRect srcFrame = src.view.frame;
-
-	// need an easing view that is 2 * the width of the src.
-	CGRect easingFrame = CGRectMake(-srcFrame.size.width, 0, srcFrame.size.width * 2, srcFrame.size.height);
-	UIView * easingView = self.easingView;
-	easingView.frame = easingFrame;
-
+	
 	// need to put the src view and the dst view into easing view
 	UIImageView * srcImage = [[UIImageView alloc] initWithImage:[self imageFromView:src.view]];
 	srcImage.frame = CGRectMake(srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
@@ -92,25 +89,6 @@
 
 	[easingView addSubview:srcImage];
 	[easingView addSubview:dstImage];
-
-	// Hide src.view behind a pattern so overages don't show it accidentally (i.e. Back animation)
-	UIView * patternView = [[UIView alloc] initWithFrame:srcFrame];
-	patternView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-	[src.view.superview addSubview:patternView];
-	
-	[src.view.superview addSubview:easingView];
-
-	[UIView animateWithDuration:self.animationDuration animations:^{
-
-		easingView.frame = self.endingFrame;
-
-	} completion:^(BOOL finished) {
-
-		UINavigationController *nav = src.navigationController;
-		[nav pushViewController:dst animated:NO];
-		[easingView removeFromSuperview];
-		
-	}];
 }
 
 @end
@@ -151,9 +129,9 @@
 	UIViewController *src = (UIViewController *) self.sourceViewController;
 
 	CGRect srcFrame = src.view.frame;
-	CGRect offScreenFrame = CGRectMake(srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
+	CGRect startingFrame = CGRectMake(0, 0, srcFrame.size.width, srcFrame.size.height * 2);
 
-	return [self scrollAdjustedFrame:offScreenFrame];
+	return startingFrame;
 }
 
 - (CGRect)endingFrame
@@ -161,22 +139,17 @@
 	UIViewController *src = (UIViewController *) self.sourceViewController;
 
 	CGRect srcFrame = src.view.frame;
-	CGRect offScreenFrame = CGRectMake(0, -srcFrame.size.height, srcFrame.size.width, srcFrame.size.height * 2);
+	CGRect endingFrame = CGRectMake(0, -srcFrame.size.height, srcFrame.size.width, srcFrame.size.height * 2);
 
-	return offScreenFrame;
+	return endingFrame;
 }
 
-- (void)perform
+- (void)populateEasingView:(UIView *)easingView
 {
 	UIViewController *src = (UIViewController *) self.sourceViewController;
-    UIViewController *dst = (UIViewController *) self.destinationViewController;
+	UIViewController *dst = (UIViewController *) self.destinationViewController;
 
 	CGRect srcFrame = src.view.frame;
-
-	//  need an easing view that is 2 * the height of the src.
-	CGRect easingFrame = CGRectMake(0, 0, srcFrame.size.width, srcFrame.size.height * 2);
-	UIView * easingView = self.easingView;
-	easingView.frame = easingFrame;
 
 	// need to put the src view and the dst view into easing view
 	UIImageView * srcImage = [[UIImageView alloc] initWithImage:[self imageFromView:src.view]];
@@ -187,26 +160,6 @@
 
 	[easingView addSubview:srcImage];
 	[easingView addSubview:dstImage];
-
-	// Hide src.view behind a pattern so overages don't show it accidentally (i.e. Back animation)
-	UIView * patternView = [[UIView alloc] initWithFrame:srcFrame];
-	patternView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-	[src.view.superview addSubview:patternView];
-
-	[src.view.superview addSubview:easingView];
-
-	[UIView animateWithDuration:self.animationDuration animations:^{
-
-		easingView.frame = self.endingFrame;
-
-	} completion:^(BOOL finished) {
-
-		UINavigationController *nav = src.navigationController;
-		[nav pushViewController:dst animated:NO];
-		[patternView removeFromSuperview];
-		[easingView removeFromSuperview];
-		
-	}];
 }
 
 @end
@@ -247,9 +200,9 @@
 	UIViewController *src = (UIViewController *) self.sourceViewController;
 
 	CGRect srcFrame = src.view.frame;
-	CGRect offScreenFrame = CGRectMake(srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
+	CGRect startingFrame = CGRectMake(0, -srcFrame.size.height, srcFrame.size.width, srcFrame.size.height * 2);
 
-	return [self scrollAdjustedFrame:offScreenFrame];
+	return startingFrame;
 }
 
 - (CGRect)endingFrame
@@ -257,22 +210,17 @@
 	UIViewController *src = (UIViewController *) self.sourceViewController;
 
 	CGRect srcFrame = src.view.frame;
-	CGRect offScreenFrame = CGRectMake(0, 0, srcFrame.size.width, srcFrame.size.height * 2);
+	CGRect endingFrame = CGRectMake(0, 0, srcFrame.size.width, srcFrame.size.height * 2);
 
-	return offScreenFrame;
+	return endingFrame;
 }
 
-- (void)perform
+- (void)populateEasingView:(UIView *)easingView
 {
 	UIViewController *src = (UIViewController *) self.sourceViewController;
-    UIViewController *dst = (UIViewController *) self.destinationViewController;
+	UIViewController *dst = (UIViewController *) self.destinationViewController;
 
 	CGRect srcFrame = src.view.frame;
-
-	//  need an easing view that is 2 * the height of the src.
-	CGRect easingFrame = CGRectMake(0, -srcFrame.size.height, srcFrame.size.width, srcFrame.size.height * 2);
-	UIView * easingView = self.easingView;
-	easingView.frame = easingFrame;
 
 	// need to put the src view and the dst view into easing view
 	UIImageView * srcImage = [[UIImageView alloc] initWithImage:[self imageFromView:src.view]];
@@ -283,26 +231,6 @@
 
 	[easingView addSubview:dstImage];
 	[easingView addSubview:srcImage];
-
-	// Hide src.view behind a pattern so overages don't show it accidentally (i.e. Back animation)
-	UIView * patternView = [[UIView alloc] initWithFrame:srcFrame];
-	patternView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-	[src.view.superview addSubview:patternView];
-
-	[src.view.superview addSubview:easingView];
-
-	[UIView animateWithDuration:self.animationDuration animations:^{
-
-		easingView.frame = self.endingFrame;
-
-	} completion:^(BOOL finished) {
-
-		UINavigationController *nav = src.navigationController;
-		[nav pushViewController:dst animated:NO];
-		[patternView removeFromSuperview];
-		[easingView removeFromSuperview];
-		
-	}];
 }
 
 @end

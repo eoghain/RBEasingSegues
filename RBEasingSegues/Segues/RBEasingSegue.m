@@ -35,22 +35,24 @@
 
 - (CGRect)startingFrame
 {
+	// Starting Frame for standard (i.e. PushRight) animations is twice the width of the source frame
 	UIViewController *src = (UIViewController *) self.sourceViewController;
 
 	CGRect srcFrame = src.view.frame;
-	CGRect offScreenFrame = CGRectMake(srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
+	CGRect startingFrame = CGRectMake(0, 0, srcFrame.size.width * 2, srcFrame.size.height);
 
-	return [self scrollAdjustedFrame:offScreenFrame];
+	return startingFrame;
 }
 
 - (CGRect)endingFrame
 {
+	// Ending Frame for standard (i.e. PushRight) animations is left 1/2 of the frame visible
 	UIViewController *src = (UIViewController *) self.sourceViewController;
 
 	CGRect srcFrame = src.view.frame;
-	CGRect offScreenFrame = CGRectMake(-srcFrame.size.width, 0, srcFrame.size.width * 2, srcFrame.size.height);
+	CGRect endingFrame = CGRectMake(-srcFrame.size.width, 0, srcFrame.size.width * 2, srcFrame.size.height);
 
-	return offScreenFrame;
+	return endingFrame;
 }
 
 - (UIImage *)imageFromView:(UIView *)view
@@ -73,17 +75,12 @@
 	return screenshot;
 }
 
-- (void)perform
+- (void)populateEasingView:(UIView *)easingView
 {
+	UIViewController *dst = (UIViewController *) self.destinationViewController;
 	UIViewController *src = (UIViewController *) self.sourceViewController;
-    UIViewController *dst = (UIViewController *) self.destinationViewController;
 
 	CGRect srcFrame = src.view.frame;
-	
-	//  need an easing view that is 2 * the width of the src.
-	CGRect easingFrame = CGRectMake(0, 0, srcFrame.size.width * 2, srcFrame.size.height);
-	UIView * easingView = self.easingView;
-	easingView.frame = easingFrame;
 
 	// need to put the src view and the dst view into easing view
 	UIImageView * srcImage = [[UIImageView alloc] initWithImage:[self imageFromView:src.view]];
@@ -91,9 +88,21 @@
 
 	UIImageView * dstImage = [[UIImageView alloc] initWithImage:[self imageFromView:dst.view]];
 	dstImage.frame = CGRectMake(srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
-	
+
 	[easingView addSubview:srcImage];
 	[easingView addSubview:dstImage];
+}
+
+- (void)perform
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+	UIViewController *dst = (UIViewController *) self.destinationViewController;
+
+	CGRect srcFrame = src.view.frame;
+	
+	UIView * easingView = self.easingView;
+	easingView.frame = self.startingFrame;
+	[self populateEasingView:easingView];
 
 	// Hide src.view behind a pattern so overages don't show it accidentally (i.e. Back animation)
 	UIView * patternView = [[UIView alloc] initWithFrame:srcFrame];
