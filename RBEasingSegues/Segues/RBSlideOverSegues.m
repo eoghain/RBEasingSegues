@@ -9,12 +9,16 @@
 
 @implementation RBSlideOverSegue
 
+- (CGRect)endingFrame
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+	return [self scrollAdjustedFrame:src.view.frame];
+}
+
 - (void)perform
 {
 	UIViewController *src = (UIViewController *) self.sourceViewController;
     UIViewController *dst = (UIViewController *) self.destinationViewController;
-
-	CGRect srcFrame = [self scrollAdjustedFrame:src.view.frame];
 
 	UIView * easingView = self.easingView;
 	easingView.frame = self.startingFrame;
@@ -28,7 +32,7 @@
 
 	[UIView animateWithDuration:self.animationDuration animations:^{
 
-		easingView.frame = srcFrame;
+		easingView.frame = self.endingFrame;
 
 	} completion:^(BOOL finished) {
 

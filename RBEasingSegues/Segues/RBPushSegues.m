@@ -13,7 +13,8 @@
 
 @end
 
-#pragma mark - From Right
+
+#pragma mark - Right
 
 @implementation RBPushRightSegue
 
@@ -45,7 +46,8 @@
 
 @end
 
-#pragma mark - From Left
+
+#pragma mark - Left
 
 @implementation RBPushLeftSegue
 
@@ -59,6 +61,16 @@
 	return [self scrollAdjustedFrame:offScreenFrame];
 }
 
+- (CGRect)endingFrame
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+
+	CGRect srcFrame = src.view.frame;
+	CGRect offScreenFrame = CGRectMake(0, 0, srcFrame.size.width * 2, srcFrame.size.height);
+
+	return offScreenFrame;
+}
+
 - (void)perform
 {
 	UIViewController *src = (UIViewController *) self.sourceViewController;
@@ -66,9 +78,8 @@
 
 	CGRect srcFrame = src.view.frame;
 
-	// need an easing view that is 2 * the size of the src.
+	// need an easing view that is 2 * the width of the src.
 	CGRect easingFrame = CGRectMake(-srcFrame.size.width, 0, srcFrame.size.width * 2, srcFrame.size.height);
-	CGRect endFrame = CGRectMake(0, 0, easingFrame.size.width, easingFrame.size.height);
 	UIView * easingView = self.easingView;
 	easingView.frame = easingFrame;
 
@@ -91,7 +102,7 @@
 
 	[UIView animateWithDuration:self.animationDuration animations:^{
 
-		easingView.frame = endFrame;
+		easingView.frame = self.endingFrame;
 
 	} completion:^(BOOL finished) {
 
@@ -124,6 +135,198 @@
 @end
 
 @implementation RBPushLeftElasticEaseOutSegue
+
+- (UIView *)easingView { return [[RBElasticEaseOutView alloc] init]; }
+- (CGFloat)animationDuration { return 1.0; }
+
+@end
+
+
+#pragma mark - Up
+
+@implementation RBPushUpSegue
+
+- (CGRect)startingFrame
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+
+	CGRect srcFrame = src.view.frame;
+	CGRect offScreenFrame = CGRectMake(srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
+
+	return [self scrollAdjustedFrame:offScreenFrame];
+}
+
+- (CGRect)endingFrame
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+
+	CGRect srcFrame = src.view.frame;
+	CGRect offScreenFrame = CGRectMake(0, -srcFrame.size.height, srcFrame.size.width, srcFrame.size.height * 2);
+
+	return offScreenFrame;
+}
+
+- (void)perform
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+    UIViewController *dst = (UIViewController *) self.destinationViewController;
+
+	CGRect srcFrame = src.view.frame;
+
+	//  need an easing view that is 2 * the height of the src.
+	CGRect easingFrame = CGRectMake(0, 0, srcFrame.size.width, srcFrame.size.height * 2);
+	UIView * easingView = self.easingView;
+	easingView.frame = easingFrame;
+
+	// need to put the src view and the dst view into easing view
+	UIImageView * srcImage = [[UIImageView alloc] initWithImage:[self imageFromView:src.view]];
+	srcImage.frame = CGRectMake(0, 0, srcFrame.size.width, srcFrame.size.height);
+
+	UIImageView * dstImage = [[UIImageView alloc] initWithImage:[self imageFromView:dst.view]];
+	dstImage.frame = CGRectMake(0, srcFrame.size.height, srcFrame.size.width, srcFrame.size.height);
+
+	[easingView addSubview:srcImage];
+	[easingView addSubview:dstImage];
+
+	// Hide src.view behind a pattern so overages don't show it accidentally (i.e. Back animation)
+	UIView * patternView = [[UIView alloc] initWithFrame:srcFrame];
+	patternView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+	[src.view.superview addSubview:patternView];
+
+	[src.view.superview addSubview:easingView];
+
+	[UIView animateWithDuration:self.animationDuration animations:^{
+
+		easingView.frame = self.endingFrame;
+
+	} completion:^(BOOL finished) {
+
+		UINavigationController *nav = src.navigationController;
+		[nav pushViewController:dst animated:NO];
+		[patternView removeFromSuperview];
+		[easingView removeFromSuperview];
+		
+	}];
+}
+
+@end
+
+@implementation RBPushUpBounceEaseOutSegue
+
+- (UIView *)easingView { return [[RBBounceOutView alloc] init]; }
+- (CGFloat)animationDuration { return 1.0; }
+
+@end
+
+@implementation RBPushUpCubicEaseOutSegue
+
+- (UIView *)easingView { return [[RBCubicEaseOutView alloc] init]; }
+
+@end
+
+@implementation RBPushUpBackEaseOutSegue
+
+- (UIView *)easingView { return [[RBBackEaseOutView alloc] init]; }
+
+@end
+
+@implementation RBPushUpElasticEaseOutSegue
+
+- (UIView *)easingView { return [[RBElasticEaseOutView alloc] init]; }
+- (CGFloat)animationDuration { return 1.0; }
+
+@end
+
+
+#pragma mark - Down
+
+@implementation RBPushDownSegue
+
+- (CGRect)startingFrame
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+
+	CGRect srcFrame = src.view.frame;
+	CGRect offScreenFrame = CGRectMake(srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
+
+	return [self scrollAdjustedFrame:offScreenFrame];
+}
+
+- (CGRect)endingFrame
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+
+	CGRect srcFrame = src.view.frame;
+	CGRect offScreenFrame = CGRectMake(0, 0, srcFrame.size.width, srcFrame.size.height * 2);
+
+	return offScreenFrame;
+}
+
+- (void)perform
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+    UIViewController *dst = (UIViewController *) self.destinationViewController;
+
+	CGRect srcFrame = src.view.frame;
+
+	//  need an easing view that is 2 * the height of the src.
+	CGRect easingFrame = CGRectMake(0, -srcFrame.size.height, srcFrame.size.width, srcFrame.size.height * 2);
+	UIView * easingView = self.easingView;
+	easingView.frame = easingFrame;
+
+	// need to put the src view and the dst view into easing view
+	UIImageView * srcImage = [[UIImageView alloc] initWithImage:[self imageFromView:src.view]];
+	srcImage.frame = CGRectMake(0, srcFrame.size.height, srcFrame.size.width, srcFrame.size.height);
+
+	UIImageView * dstImage = [[UIImageView alloc] initWithImage:[self imageFromView:dst.view]];
+	dstImage.frame = CGRectMake(0, 0, srcFrame.size.width, srcFrame.size.height);
+
+	[easingView addSubview:dstImage];
+	[easingView addSubview:srcImage];
+
+	// Hide src.view behind a pattern so overages don't show it accidentally (i.e. Back animation)
+	UIView * patternView = [[UIView alloc] initWithFrame:srcFrame];
+	patternView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+	[src.view.superview addSubview:patternView];
+
+	[src.view.superview addSubview:easingView];
+
+	[UIView animateWithDuration:self.animationDuration animations:^{
+
+		easingView.frame = self.endingFrame;
+
+	} completion:^(BOOL finished) {
+
+		UINavigationController *nav = src.navigationController;
+		[nav pushViewController:dst animated:NO];
+		[patternView removeFromSuperview];
+		[easingView removeFromSuperview];
+		
+	}];
+}
+
+@end
+
+@implementation RBPushDownBounceEaseOutSegue
+
+- (UIView *)easingView { return [[RBBounceOutView alloc] init]; }
+- (CGFloat)animationDuration { return 1.0; }
+
+@end
+
+@implementation RBPushDownCubicEaseOutSegue
+
+- (UIView *)easingView { return [[RBCubicEaseOutView alloc] init]; }
+
+@end
+
+@implementation RBPushDownBackEaseOutSegue
+
+- (UIView *)easingView { return [[RBBackEaseOutView alloc] init]; }
+
+@end
+
+@implementation RBPushDownElasticEaseOutSegue
 
 - (UIView *)easingView { return [[RBElasticEaseOutView alloc] init]; }
 - (CGFloat)animationDuration { return 1.0; }

@@ -43,6 +43,16 @@
 	return [self scrollAdjustedFrame:offScreenFrame];
 }
 
+- (CGRect)endingFrame
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+
+	CGRect srcFrame = src.view.frame;
+	CGRect offScreenFrame = CGRectMake(-srcFrame.size.width, 0, srcFrame.size.width * 2, srcFrame.size.height);
+
+	return offScreenFrame;
+}
+
 - (UIImage *)imageFromView:(UIView *)view
 {
 	UIImage* screenshot = nil;
@@ -60,7 +70,6 @@
 	screenshot = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 
-//	UIImageWriteToSavedPhotosAlbum(screenshot, self, nil, NULL);
 	return screenshot;
 }
 
@@ -71,9 +80,8 @@
 
 	CGRect srcFrame = src.view.frame;
 	
-	//  need an easing view that is 2 * the size of the src.
+	//  need an easing view that is 2 * the width of the src.
 	CGRect easingFrame = CGRectMake(0, 0, srcFrame.size.width * 2, srcFrame.size.height);
-	CGRect endFrame = CGRectMake(-srcFrame.size.width, 0, easingFrame.size.width, easingFrame.size.height);
 	UIView * easingView = self.easingView;
 	easingView.frame = easingFrame;
 
@@ -96,7 +104,7 @@
 
 	[UIView animateWithDuration:self.animationDuration animations:^{
 
-		easingView.frame = endFrame;
+		easingView.frame = self.endingFrame;
 
 	} completion:^(BOOL finished) {
 

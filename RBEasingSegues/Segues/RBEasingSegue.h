@@ -15,6 +15,7 @@
 
 @property (readonly) UIView *easingView;
 @property (readonly) CGRect startingFrame;
+@property (readonly) CGRect endingFrame;
 @property (readonly) CGFloat animationDuration;
 
 - (CGRect)scrollAdjustedFrame:(CGRect)frame;

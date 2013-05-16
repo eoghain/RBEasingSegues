@@ -11,6 +11,9 @@
 
 @end
 
+
+#pragma mark - Right
+
 @interface RBPushRightSegue : RBPushSegue
 
 @end
@@ -31,6 +34,9 @@
 
 @end
 
+
+#pragma mark Left
+
 @interface RBPushLeftSegue : RBPushSegue
 
 @end
@@ -48,5 +54,51 @@
 @end
 
 @interface RBPushLeftElasticEaseOutSegue : RBPushLeftSegue
+
+@end
+
+
+#pragma mark - Up
+
+@interface RBPushUpSegue : RBPushSegue
+
+@end
+
+@interface RBPushUpBounceEaseOutSegue : RBPushUpSegue
+
+@end
+
+@interface RBPushUpCubicEaseOutSegue : RBPushUpSegue
+
+@end
+
+@interface RBPushUpBackEaseOutSegue : RBPushUpSegue
+
+@end
+
+@interface RBPushUpElasticEaseOutSegue : RBPushUpSegue
+
+@end
+
+
+#pragma mark - Down
+
+@interface RBPushDownSegue : RBPushSegue
+
+@end
+
+@interface RBPushDownBounceEaseOutSegue : RBPushDownSegue
+
+@end
+
+@interface RBPushDownCubicEaseOutSegue : RBPushDownSegue
+
+@end
+
+@interface RBPushDownBackEaseOutSegue : RBPushDownSegue
+
+@end
+
+@interface RBPushDownElasticEaseOutSegue : RBPushDownSegue
 
 @end
