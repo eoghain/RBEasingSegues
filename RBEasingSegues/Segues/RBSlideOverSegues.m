@@ -9,6 +9,16 @@
 
 @implementation RBSlideOverSegue
 
+- (CGRect)startingFrame
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+
+	CGRect srcFrame = src.view.frame;
+	CGRect startingFrame = CGRectMake(srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
+
+	return [self scrollAdjustedFrame:startingFrame];
+}
+
 - (CGRect)endingFrame
 {
 	UIViewController *src = (UIViewController *) self.sourceViewController;
@@ -49,7 +59,7 @@
 
 @end
 
-#pragma mark - From Right
+#pragma mark - Right
 
 @implementation RBSlideOverRightSegue
 
@@ -81,7 +91,7 @@
 
 @end
 
-#pragma mark - From Left
+#pragma mark - Left
 
 @implementation RBSlideOverLeftSegue
 
@@ -90,9 +100,9 @@
 	UIViewController *src = (UIViewController *) self.sourceViewController;
 
 	CGRect srcFrame = src.view.frame;
-	CGRect offScreenFrame = CGRectMake(-srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
+	CGRect startingFrame = CGRectMake(-srcFrame.size.width, 0, srcFrame.size.width, srcFrame.size.height);
 
-	return [self scrollAdjustedFrame:offScreenFrame];
+	return [self scrollAdjustedFrame:startingFrame];
 }
 
 @end
@@ -122,3 +132,91 @@
 - (CGFloat)animationDuration { return 1.0; }
 
 @end
+
+
+#pragma mark - Up
+
+@implementation RBSlideOverUpSegue
+
+- (CGRect)startingFrame
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+
+	CGRect srcFrame = src.view.frame;
+	CGRect startingFrame = CGRectMake(0, srcFrame.size.height, srcFrame.size.width, srcFrame.size.height);
+
+	return [self scrollAdjustedFrame:startingFrame];
+}
+
+@end
+
+@implementation RBSlideOverUpBounceEaseOutSegue
+
+- (UIView *)easingView { return [[RBBounceOutView alloc] init]; }
+- (CGFloat)animationDuration { return 1.0; }
+
+@end
+
+@implementation RBSlideOverUpCubicEaseOutSegue
+
+- (UIView *)easingView { return [[RBCubicEaseOutView alloc] init]; }
+
+@end
+
+@implementation RBSlideOverUpBackEaseOutSegue
+
+- (UIView *)easingView { return [[RBBackEaseOutView alloc] init]; }
+
+@end
+
+@implementation RBSlideOverUpElasticEaseOutSegue
+
+- (UIView *)easingView { return [[RBElasticEaseOutView alloc] init]; }
+- (CGFloat)animationDuration { return 1.0; }
+
+@end
+
+
+#pragma mark - Down
+
+@implementation RBSlideOverDownSegue
+
+- (CGRect)startingFrame
+{
+	UIViewController *src = (UIViewController *) self.sourceViewController;
+
+	CGRect srcFrame = src.view.frame;
+	CGRect startingFrame = CGRectMake(0, -srcFrame.size.height, srcFrame.size.width, srcFrame.size.height);
+
+	return [self scrollAdjustedFrame:startingFrame];
+}
+
+@end
+
+@implementation RBSlideOverDownBounceEaseOutSegue
+
+- (UIView *)easingView { return [[RBBounceOutView alloc] init]; }
+- (CGFloat)animationDuration { return 1.0; }
+
+@end
+
+@implementation RBSlideOverDownCubicEaseOutSegue
+
+- (UIView *)easingView { return [[RBCubicEaseOutView alloc] init]; }
+
+@end
+
+@implementation RBSlideOverDownBackEaseOutSegue
+
+- (UIView *)easingView { return [[RBBackEaseOutView alloc] init]; }
+
+@end
+
+@implementation RBSlideOverDownElasticEaseOutSegue
+
+- (UIView *)easingView { return [[RBElasticEaseOutView alloc] init]; }
+- (CGFloat)animationDuration { return 1.0; }
+
+@end
+
+
