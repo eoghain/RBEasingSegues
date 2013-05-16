@@ -12,6 +12,9 @@
 
 @end
 
+
+#pragma mark - Right
+
 @interface RBSlideOffRightSegue : RBSlideOffSegue
 
 @end
@@ -28,6 +31,9 @@
 
 @end
 
+
+#pragma mark - Left
+
 @interface RBSlideOffLeftSegue : RBSlideOffSegue
 
 @end
@@ -41,5 +47,43 @@
 @end
 
 @interface RBSlideOffLeftElasticEaseOutSegue : RBSlideOffLeftSegue
+
+@end
+
+
+#pragma mark - Up
+
+@interface RBSlideOffUpSegue : RBSlideOffSegue
+
+@end
+
+@interface RBSlideOffUpBounceEaseOutSegue : RBSlideOffUpSegue
+
+@end
+
+@interface RBSlideOffUpCubicEaseOutSegue : RBSlideOffUpSegue
+
+@end
+
+@interface RBSlideOffUpElasticEaseOutSegue : RBSlideOffUpSegue
+
+@end
+
+
+#pragma mark - Down
+
+@interface RBSlideOffDownSegue : RBSlideOffSegue
+
+@end
+
+@interface RBSlideOffDownBounceEaseOutSegue : RBSlideOffDownSegue
+
+@end
+
+@interface RBSlideOffDownCubicEaseOutSegue : RBSlideOffDownSegue
+
+@end
+
+@interface RBSlideOffDownElasticEaseOutSegue : RBSlideOffDownSegue
 
 @end
