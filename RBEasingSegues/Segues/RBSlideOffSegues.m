@@ -7,6 +7,7 @@
 //
 
 #import "RBSlideOffSegues.h"
+#import "RBSlideOverSegues.h"
 
 @implementation RBSlideOffSegue
 
@@ -25,6 +26,8 @@
 	UIViewController *src = (UIViewController *) self.sourceViewController;
     UIViewController *dst = (UIViewController *) self.destinationViewController;
 
+	[dst prepareForSegue:self sender:nil];
+	
 	CGRect srcFrame = [self scrollAdjustedFrame:src.view.frame];
 
 	UIView * easingView = self.easingView;
@@ -48,7 +51,11 @@
 	} completion:^(BOOL finished) {
 
 		UINavigationController *nav = src.navigationController;
-		[nav pushViewController:dst animated:NO];
+
+		if (![nav.viewControllers containsObject:dst])
+		{
+			[nav pushViewController:dst animated:NO];
+		}
 		[easingView removeFromSuperview];
 		
 	}];

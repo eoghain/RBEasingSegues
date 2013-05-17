@@ -9,6 +9,11 @@
 
 @implementation RBEasingSegue
 
+- (id)initAsReverseOfSegue:(UIStoryboardSegue *)segue
+{
+	return [self initWithIdentifier:NSStringFromClass([self class]) source:segue.destinationViewController destination:segue.sourceViewController];
+}
+
 - (UIView *)easingView
 {
 	return [[RBLinearView alloc] init];
@@ -118,7 +123,12 @@
 	} completion:^(BOOL finished) {
 
 		UINavigationController *nav = src.navigationController;
-		[nav pushViewController:dst animated:NO];
+
+		if (![nav.viewControllers containsObject:dst])
+		{
+			[nav pushViewController:dst animated:NO];
+		}
+
 		[patternView removeFromSuperview];
 		[easingView removeFromSuperview];
 		
