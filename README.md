@@ -1,5 +1,11 @@
 RBEasingSegues
 ==============
+
+**Note this code is sorely outdated and not suitable for iOS7+ applications.**
+
+Hopefully one day I'll get a chance to update this.
+
+
 A collection of segues that utilize the AHEasing library to add smoother transitions between views.
 --------------
 
